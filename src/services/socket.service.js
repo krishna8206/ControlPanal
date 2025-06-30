@@ -6,7 +6,7 @@ let socket
 export const initSocket = (token) => {
   if (socket) return socket
 
-  const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || "http://localhost:8989"
+  const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || "https://panalsbackend-production.up.railway.app"
 
   socket = io(SOCKET_URL, {
     auth: {

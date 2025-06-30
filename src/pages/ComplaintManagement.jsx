@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 
 // Backend URL
-const BACKEND_URL = "http://localhost:8989";
+const BACKEND_URL = "https://panalsbackend-production.up.railway.app/";
 
 export default function ComplaintManagement() {
   const [activeTab, setActiveTab] = useState("All");

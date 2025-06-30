@@ -5,7 +5,7 @@ import axios from "axios"
 
 // API instance configured to connect to your backend
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8989/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://panalsbackend-production.up.railway.app/api",
 });
 
 // Helper function to format date strings
