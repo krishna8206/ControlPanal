@@ -230,15 +230,15 @@ export default function ReportsEarning() {
       })
 
       const [summaryResponse, earningsResponse, driverResponse] = await Promise.all([
-        fetch(`https://panalsbackend-production.up.railway.appapi/reports/summary?${params}`).catch((e) => {
+        fetch(`https://panalsbackend-production.up.railway.app/api/reports/summary?${params}`).catch((e) => {
           console.error("Summary API error:", e)
           return null
         }),
-        fetch(`https://panalsbackend-production.up.railway.appapi/reports/earnings?${params}`).catch((e) => {
+        fetch(`https://panalsbackend-production.up.railway.app/api/reports/earnings?${params}`).catch((e) => {
           console.error("Earnings API error:", e)
           return null
         }),
-        fetch(`https://panalsbackend-production.up.railway.appapi/reports/driver-performance?${params}`).catch((e) => {
+        fetch(`https://panalsbackend-production.up.railway.app/api/reports/driver-performance?${params}`).catch((e) => {
           console.error("Driver API error:", e)
           return null
         }),
