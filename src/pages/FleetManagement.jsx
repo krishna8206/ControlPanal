@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 
-const socket = io("https://panalsbackend-production.up.railway.app/", {
+const socket = io("https://panalsbackend-production.up.railway.app", {
   transports: ["websocket", "polling"],
   reconnection: true,
   reconnectionAttempts: 5,
@@ -58,7 +58,7 @@ export default function FleetManagement() {
   // Fetch vehicles from backend
   async function fetchVehicles() {
     try {
-      const response = await axios.get("https://panalsbackend-production.up.railway.app/api/vehicles", {
+      const response = await axios.get("https://panalsbackend-production.up.railway.appapi/vehicles", {
         params: { status: statusFilter !== "All" ? statusFilter : undefined },
       });
   
@@ -280,7 +280,7 @@ export default function FleetManagement() {
       return;
     }
     try {
-      const response = await axios.put(`https://panalsbackend-production.up.railway.app/api/vehicles/${editingVehicle._id}`, {
+      const response = await axios.put(`https://panalsbackend-production.up.railway.appapi/vehicles/${editingVehicle._id}`, {
         ...editingVehicle,
         lastMaintenanceDate: editingVehicle.lastMaintenanceDate
           ? new Date(editingVehicle.lastMaintenanceDate)
@@ -310,7 +310,7 @@ export default function FleetManagement() {
       return;
     }
     try {
-      const response = await axios.put(`https://panalsbackend-production.up.railway.app/api/vehicles/${linkingDriver._id}/driver`, {
+      const response = await axios.put(`https://panalsbackend-production.up.railway.appapi/vehicles/${linkingDriver._id}/driver`, {
         driverId: driverIdInput,
       });
       setCurrentVehicles((prev) =>
@@ -327,7 +327,7 @@ export default function FleetManagement() {
 
   const handleSuspend = async (vehicleId) => {
     try {
-      const response = await axios.put(`https://panalsbackend-production.up.railway.app/api/vehicles/${vehicleId}/status`, {
+      const response = await axios.put(`https://panalsbackend-production.up.railway.appapi/vehicles/${vehicleId}/status`, {
         status: "Inactive",
       });
       setCurrentVehicles((prev) =>
@@ -349,7 +349,7 @@ export default function FleetManagement() {
       return;
     }
     try {
-      const response = await axios.post("https://panalsbackend-production.up.railway.app/api/vehicles", {
+      const response = await axios.post("https://panalsbackend-production.up.railway.appapi/vehicles", {
         ...newVehicle,
         lastMaintenanceDate: newVehicle.lastMaintenanceDate ? new Date(newVehicle.lastMaintenanceDate) : null,
       });
