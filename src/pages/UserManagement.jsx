@@ -122,19 +122,19 @@ export default function UserManagement() {
     setSelectedUser(user);
   };
   
-  const handleSuspend = async (user) => {
-    const action = user.status === "Suspended" ? "unblock" : "suspend";
-    if (confirm(`Are you sure you want to ${action} ${user.name}?`)) {
-      try {
-        await api.patch(`/users/${user._id}/suspend`);
-        alert(`User ${user.name} has been ${action}ed successfully!`);
-        fetchUsers();
-      } catch (error) {
-        console.error(`Failed to ${action} user:`, error);
-        alert(`Failed to ${action} user.`);
-      }
-    }
-  };
+  // const handleSuspend = async (user) => {
+  //   const action = user.status === "Suspended" ? "unblock" : "suspend";
+  //   if (confirm(`Are you sure you want to ${action} ${user.name}?`)) {
+  //     try {
+  //       await api.patch(`/users/${user._id}/suspend`);
+  //       alert(`User ${user.name} has been ${action}ed successfully!`);
+  //       fetchUsers();
+  //     } catch (error) {
+  //       console.error(`Failed to ${action} user:`, error);
+  //       alert(`Failed to ${action} user.`);
+  //     }
+  //   }
+  // };
   
   const handleCall = (phone, name) => alert(`Calling ${name} at ${phone}`);
   const handleEmail = (email, name) => alert(`Opening email to ${name} at ${email}`);
