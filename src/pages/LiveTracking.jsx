@@ -64,7 +64,7 @@ const trackingStats = {
   activeTrips: 127,
   totalDrivers: 342,
   averageETA: "12 mins",
-  coverageArea: "450 km²",
+  coverageArea: "450 km",
 }
 
 export default function LiveTracking() {

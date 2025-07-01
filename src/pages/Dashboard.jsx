@@ -12,7 +12,7 @@ import {
   TrendingDown
 } from 'lucide-react';
 import { dashboardAPI, driverAPI } from '../services/api.service.js';
-import { useDashboardSocket, useDriverSocket } from '../hooks/useSocket.js'; 
+import { useDashboardSocket, useDriverSocket } from '../hooks/useSocket.js';
 
 // Helper function to format time difference
 const formatTimeAgo = (isoString) => {
@@ -34,9 +34,9 @@ const formatTimeAgo = (isoString) => {
 const generatePlaceholderRides = () => {
   const now = new Date();
   return [
-    { _id: 'ph1', service: 'Ride', user: { name: 'Aarav Sharma' }, rideTime: new Date(now.getTime() - 2 * 60000).toISOString(), amount: 250.75, status: 'completed' },
+    { _id: 'ph1', service: 'Trip', user: { name: 'Aarav Sharma' }, rideTime: new Date(now.getTime() - 2 * 60000).toISOString(), amount: 250.75, status: 'completed' },
     { _id: 'ph2', service: 'Courier', user: { name: 'Saanvi Patel' }, rideTime: new Date(now.getTime() - 15 * 60000).toISOString(), amount: 150.00, status: 'completed' },
-    { _id: 'ph3', service: 'Ride', user: { name: 'Vivaan Mehta' }, rideTime: new Date(now.getTime() - 35 * 60000).toISOString(), amount: 450.50, status: 'in-progress' },
+    { _id: 'ph3', service: 'Trip', user: { name: 'Vivaan Mehta' }, rideTime: new Date(now.getTime() - 35 * 60000).toISOString(), amount: 450.50, status: 'in-progress' },
     { _id: 'ph4', service: 'Ride', user: { name: 'Ananya Gupta' }, rideTime: new Date(now.getTime() - 65 * 60000).toISOString(), amount: 180.25, status: 'cancelled' },
     { _id: 'ph5', service: 'Courier', user: { name: 'Advik Singh' }, rideTime: new Date(now.getTime() - 2 * 3600 * 1000).toISOString(), amount: 300.00, status: 'completed' },
   ];
@@ -61,7 +61,7 @@ export default function Dashboard() {
       setStats(data);
     }
     if (type === 'rides') {
-      console.log("🚗 Received recent rides update:", data);
+      console.log("🚗 Received recent trips update:", data);
       setRecentActivities(data);
     }
   }, []);
@@ -70,12 +70,12 @@ export default function Dashboard() {
   const handleDriverEvent = useCallback((type, data) => {
     console.log(`🚚 Received driver event '${type}':`, data);
     if (type === 'update') {
-       // Full update, replace all drivers
-       setLiveDrivers(data.data || []);
+      // Full update, replace all drivers
+      setLiveDrivers(data.data || []);
     } else if (type === 'location' || type === 'status') {
       // Partial update for a single driver
-      setLiveDrivers(prevDrivers => 
-        prevDrivers.map(driver => 
+      setLiveDrivers(prevDrivers =>
+        prevDrivers.map(driver =>
           driver._id === data.driverId ? { ...driver, ...data } : driver
         )
       );
@@ -97,12 +97,12 @@ export default function Dashboard() {
           driverAPI.getAllDrivers({ isOnline: true })
         ]);
         setStats(statsData);
-        
+
         // UPDATED: Check if ridesData is valid, otherwise use placeholders
         if (ridesData && ridesData.length > 0) {
           setRecentActivities(ridesData);
         } else {
-          console.warn("API returned no recent rides. Displaying placeholder data.");
+          console.warn("API returned no recent trips. Displaying placeholder data.");
           setRecentActivities(generatePlaceholderRides());
         }
 
@@ -127,15 +127,15 @@ export default function Dashboard() {
 
   const filteredActivities =
     activeFilter === "All" ? recentActivities : recentActivities.filter((activity) => activity.service === activeFilter);
-  
+
   const getStatusColor = (status) => {
-      switch (status) {
-          case "active": return "bg-blue-600";     // Interpreted as "On-Trip"
-          case "idle": return "bg-green-600";     // Interpreted as "Online"
-          case "offline": return "bg-gray-600";
-          case "emergency": return "bg-red-600";
-          default: return "bg-yellow-600";
-      }
+    switch (status) {
+      case "active": return "bg-blue-600";     // Interpreted as "On-Trip"
+      case "idle": return "bg-green-600";     // Interpreted as "Online"
+      case "offline": return "bg-gray-600";
+      case "emergency": return "bg-red-600";
+      default: return "bg-yellow-600";
+    }
   };
 
   const handleCall = (phone, name) => {
@@ -145,15 +145,21 @@ export default function Dashboard() {
   const handleTrack = (driverId) => {
     setSelectedDriver(driverId);
   };
-  
+
   // Growth component for stats cards
   const GrowthIndicator = ({ value }) => {
     const isPositive = value >= 0;
     return (
-      <div className={`flex items-center text-xs ${isPositive ? 'text-green-400' : 'text-red-400'}`}>
-        {isPositive ? <TrendingUp className="h-3 w-3 mr-1" /> : <TrendingDown className="h-3 w-3 mr-1" />}
-        {Math.abs(value)}% from yesterday
-      </div>
+      <>
+        <div className={`flex items-center text-xs ${isPositive ? 'text-green-400' : 'text-red-400'}`}>
+          {isPositive ? <TrendingUp className="h-3 w-3 mr-1" /> : <TrendingDown className="h-3 w-3 mr-1" />}
+          {Math.abs(value)}% from yesterday
+        </div>
+        <div className={`flex mt-2 items-center text-xs ${isPositive ? 'text-green-400' : 'text-red-400'}`}>
+          {isPositive ? <TrendingUp className="h-3 w-3 mr-1" /> : <TrendingDown className="h-3 w-3 mr-1" />}
+          {Math.abs(value)}% From SDLW
+        </div>
+      </>
     );
   };
 
@@ -195,7 +201,7 @@ export default function Dashboard() {
               </div>
               {/* Pulsing dots representing live drivers */}
               {liveDrivers.slice(0, 5).map(driver => (
-                 <div key={driver._id} className="absolute w-3 h-3 bg-green-400 rounded-full animate-pulse" style={{ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` }}></div>
+                <div key={driver._id} className="absolute w-3 h-3 bg-green-400 rounded-full animate-pulse" style={{ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` }}></div>
               ))}
             </div>
 
@@ -204,9 +210,8 @@ export default function Dashboard() {
               {liveDrivers.length > 0 ? liveDrivers.map((driver) => (
                 <div
                   key={driver._id}
-                  className={`p-3 bg-gray-800 rounded-lg border-2 transition-colors ${
-                    selectedDriver === driver._id ? "border-green-500" : "border-transparent"
-                  }`}
+                  className={`p-3 bg-gray-800 rounded-lg border-2 transition-colors ${selectedDriver === driver._id ? "border-green-500" : "border-transparent"
+                    }`}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div>
@@ -217,7 +222,7 @@ export default function Dashboard() {
                       {driver.status}
                     </span>
                   </div>
-                   <p className="text-gray-300 text-sm mb-2">Location: {driver.location ? `${driver.location.lat}, ${driver.location.lng}`: 'Not available'}</p>
+                  <p className="text-gray-300 text-sm mb-2">Location: {driver.location ? `${driver.location.lat}, ${driver.location.lng}` : 'Not available'}</p>
                   <div className="flex space-x-2">
                     <button
                       onClick={() => handleCall(driver.phone, driver.name)}
@@ -243,10 +248,10 @@ export default function Dashboard() {
 
       {/* Stats Grid */}
       {stats && (
-         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium text-gray-400">Today's Rides</h3>
+              <h3 className="text-sm font-medium text-gray-400">Today's Trips</h3>
               <Car className="h-4 w-4 text-green-400" />
             </div>
             <div className="text-2xl font-bold text-white">{stats.todayRides}</div>
@@ -259,7 +264,8 @@ export default function Dashboard() {
               <Users className="h-4 w-4 text-green-400" />
             </div>
             <div className="text-2xl font-bold text-white">{stats.totalDrivers}</div>
-             <div className="text-xs text-gray-400">+{stats.newDriversThisWeek} new this week</div>
+            <div className="text-xs text-gray-400">+{stats.newDriversThisWeek} New This Week</div>
+            <div className="text-xs mt-2 text-gray-400">+{stats.newDriversThisWeek} New Last Week</div>
           </div>
 
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
@@ -273,20 +279,22 @@ export default function Dashboard() {
 
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium text-gray-400">Completed Rides</h3>
+              <h3 className="text-sm font-medium text-gray-400">Completed Trips</h3>
               <CheckCircle className="h-4 w-4 text-green-400" />
             </div>
             <div className="text-2xl font-bold text-white">{stats.completedRides}</div>
-            <div className="text-xs text-green-400">{stats.successRate}% success rate</div>
+            <div className="text-xs text-green-400">{stats.successRate}% From Yesterday</div>
+            <div className="text-xs mt-2 text-green-400">{stats.successRate}% From SDLW</div>
           </div>
 
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium text-gray-400">Cancelled Rides</h3>
+              <h3 className="text-sm font-medium text-gray-400">Cancelled Trips</h3>
               <XCircle className="h-4 w-4 text-red-400" />
             </div>
             <div className="text-2xl font-bold text-white">{stats.cancelledRides}</div>
-            <div className="text-xs text-red-400">{stats.cancellationRate}% cancellation rate</div>
+            <div className="text-xs text-red-400">{stats.cancellationRate}% From Yesterday</div>
+            <div className="text-xs mt-2 text-red-400">{stats.cancellationRate}% From SDLW</div>
           </div>
         </div>
       )}
@@ -301,11 +309,10 @@ export default function Dashboard() {
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
-                  className={`px-3 py-1 text-sm rounded ${
-                    activeFilter === filter
+                  className={`px-3 py-1 text-sm rounded ${activeFilter === filter
                       ? "bg-green-600 hover:bg-green-700 text-white"
                       : "border border-gray-700 text-gray-400 hover:bg-gray-800"
-                  }`}
+                    }`}
                 >
                   {filter}
                 </button>
@@ -319,9 +326,8 @@ export default function Dashboard() {
               <div key={activity._id} className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
                 <div className="flex items-center space-x-4">
                   <span
-                    className={`px-2 py-1 rounded text-xs font-semibold capitalize ${
-                      activity.service === "Ride" ? "border border-blue-500 text-blue-400" : "border border-purple-500 text-purple-400"
-                    }`}
+                    className={`px-2 py-1 rounded text-xs font-semibold capitalize ${activity.service === "Ride" ? "border border-blue-500 text-blue-400" : "border border-purple-500 text-purple-400"
+                      }`}
                   >
                     {activity.service}
                   </span>
@@ -333,11 +339,9 @@ export default function Dashboard() {
                 <div className="flex items-center space-x-4">
                   <p className="text-white font-medium">₹{activity.amount}</p>
                   <span
-                    className={`px-2 py-1 rounded text-xs capitalize ${
-                      activity.status === "completed" ? "bg-green-600 text-white" : ""
-                    } ${activity.status === "in-progress" ? "bg-yellow-600 text-white" : ""} ${
-                      activity.status === "pending" ? "bg-gray-600 text-white" : ""
-                    } ${ activity.status === "cancelled" ? "bg-red-600 text-white" : "" }`}
+                    className={`px-2 py-1 rounded text-xs capitalize ${activity.status === "completed" ? "bg-green-600 text-white" : ""
+                      } ${activity.status === "in-progress" ? "bg-yellow-600 text-white" : ""} ${activity.status === "pending" ? "bg-gray-600 text-white" : ""
+                      } ${activity.status === "cancelled" ? "bg-red-600 text-white" : ""}`}
                   >
                     {activity.status}
                   </span>

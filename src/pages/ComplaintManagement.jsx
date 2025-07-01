@@ -152,6 +152,41 @@ export default function ComplaintManagement() {
         </div>
       </div>
 
+
+      {/* Summary Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
+          <div className="text-center">
+            <p className="text-xl sm:text-2xl font-bold text-white">{complaints.length}</p>
+            <p className="text-gray-400 text-xs sm:text-sm">Total Complaints</p>
+          </div>
+        </div>
+        <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
+          <div className="text-center">
+            <p className="text-xl sm:text-2xl font-bold text-red-400">
+              {complaints.filter((c) => c.status === "Pending").length}
+            </p>
+            <p className="text-gray-400 text-xs sm:text-sm">Pending</p>
+          </div>
+        </div>
+        <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
+          <div className="text-center">
+            <p className="text-xl sm:text-2xl font-bold text-green-400">
+              {complaints.filter((c) => c.status === "Resolved" || c.status === "Refunded").length}
+            </p>
+            <p className="text-gray-400 text-xs sm:text-sm">Resolved</p>
+          </div>
+        </div>
+        <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
+          <div className="text-center">
+            <p className="text-xl sm:text-2xl font-bold text-blue-400">
+              {complaints.filter((c) => c.refundStatus === "Completed").length}
+            </p>
+            <p className="text-gray-400 text-xs sm:text-sm">Refunded</p>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Complaints List */}
         <div className="lg:col-span-2">
@@ -561,39 +596,7 @@ export default function ComplaintManagement() {
         </div>
       </div>
 
-      {/* Summary Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-          <div className="text-center">
-            <p className="text-xl sm:text-2xl font-bold text-white">{complaints.length}</p>
-            <p className="text-gray-400 text-xs sm:text-sm">Total Complaints</p>
-          </div>
-        </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-          <div className="text-center">
-            <p className="text-xl sm:text-2xl font-bold text-red-400">
-              {complaints.filter((c) => c.status === "Pending").length}
-            </p>
-            <p className="text-gray-400 text-xs sm:text-sm">Pending</p>
-          </div>
-        </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-          <div className="text-center">
-            <p className="text-xl sm:text-2xl font-bold text-green-400">
-              {complaints.filter((c) => c.status === "Resolved" || c.status === "Refunded").length}
-            </p>
-            <p className="text-gray-400 text-xs sm:text-sm">Resolved</p>
-          </div>
-        </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-          <div className="text-center">
-            <p className="text-xl sm:text-2xl font-bold text-blue-400">
-              {complaints.filter((c) => c.refundStatus === "Completed").length}
-            </p>
-            <p className="text-gray-400 text-xs sm:text-sm">Refunded</p>
-          </div>
-        </div>
-      </div>
+      
     </div>
   );
 }

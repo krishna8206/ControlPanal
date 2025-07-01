@@ -163,6 +163,16 @@ export default function UserManagement() {
           </div>
         </div>
       </div>
+
+
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-gray-900 border border-gray-800 rounded-lg"><div className="p-6"><div className="text-center"><p className="text-2xl font-bold text-white">{users.length}</p><p className="text-gray-400 text-sm">Total Users</p></div></div></div>
+        <div className="bg-gray-900 border border-gray-800 rounded-lg"><div className="p-6"><div className="text-center"><p className="text-2xl font-bold text-blue-400">{users.filter((u) => u.role === "Customer").length}</p><p className="text-gray-400 text-sm">Customers</p></div></div></div>
+        <div className="bg-gray-900 border border-gray-800 rounded-lg"><div className="p-6"><div className="text-center"><p className="text-2xl font-bold text-green-400">{users.filter((u) => u.role === "Driver").length}</p><p className="text-gray-400 text-sm">Drivers</p></div></div></div>
+        <div className="bg-gray-900 border border-gray-800 rounded-lg"><div className="p-6"><div className="text-center"><p className="text-2xl font-bold text-purple-400">{users.filter((u) => u.role === "Vendor").length}</p><p className="text-gray-400 text-sm">Vendors</p></div></div></div>
+      </div>
+
       
       {loading ? (
         <div className="text-center text-white text-lg p-10">Loading users...</div>
@@ -206,13 +216,6 @@ export default function UserManagement() {
         {users.length === 0 && !loading && (<div className="text-center py-10 bg-gray-900 rounded-lg"><p className="text-white text-lg">No users found.</p><p className="text-gray-400">Try adjusting your search or filter.</p></div>)}
       </div>
       )}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-gray-900 border border-gray-800 rounded-lg"><div className="p-6"><div className="text-center"><p className="text-2xl font-bold text-white">{users.length}</p><p className="text-gray-400 text-sm">Total Users</p></div></div></div>
-        <div className="bg-gray-900 border border-gray-800 rounded-lg"><div className="p-6"><div className="text-center"><p className="text-2xl font-bold text-blue-400">{users.filter((u) => u.role === "Customer").length}</p><p className="text-gray-400 text-sm">Customers</p></div></div></div>
-        <div className="bg-gray-900 border border-gray-800 rounded-lg"><div className="p-6"><div className="text-center"><p className="text-2xl font-bold text-green-400">{users.filter((u) => u.role === "Driver").length}</p><p className="text-gray-400 text-sm">Drivers</p></div></div></div>
-        <div className="bg-gray-900 border border-gray-800 rounded-lg"><div className="p-6"><div className="text-center"><p className="text-2xl font-bold text-purple-400">{users.filter((u) => u.role === "Vendor").length}</p><p className="text-gray-400 text-sm">Vendors</p></div></div></div>
-      </div>
 
       {selectedUser && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">

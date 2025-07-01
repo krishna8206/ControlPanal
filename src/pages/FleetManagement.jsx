@@ -27,13 +27,13 @@ export default function FleetManagement() {
     registrationNumber: "",
     model: "",
     vehicleType: "Car",
-    category: "Ride",
+    category: "Trip",
     fuelType: "Petrol",
     capacity: "",
     year: "",
     color: "",
     status: "Active",
-    lastMaintenanceDate: "",
+    // lastMaintenanceDate: "",
     assignedDriver: null,
   });
   const [errors, setErrors] = useState({});
@@ -61,17 +61,17 @@ export default function FleetManagement() {
       const response = await axios.get("https://panalsbackend-production.up.railway.app/api/vehicles", {
         params: { status: statusFilter !== "All" ? statusFilter : undefined },
       });
-  
+
       // Check if response.data exists and has the expected structure
       if (!response.data || !response.data.success) {
         throw new Error("Invalid response from server: Success flag missing or false");
       }
-  
+
       // Ensure response.data.data is an array
       if (!Array.isArray(response.data.data)) {
         throw new Error("Expected an array of vehicles, but received: " + JSON.stringify(response.data.data));
       }
-  
+
       setCurrentVehicles(
         response.data.data.map((v) => ({
           ...v,
@@ -168,7 +168,7 @@ export default function FleetManagement() {
 
   const getVehicleIcon = (category) => {
     switch (category) {
-      case "Ride":
+      case "Trip":
         return (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -251,8 +251,8 @@ export default function FleetManagement() {
         return "bg-green-600";
       case "Inactive":
         return "bg-gray-600";
-      case "Maintenance":
-        return "bg-yellow-600";
+      // case "Maintenance":
+      //   return "bg-yellow-600";
       default:
         return "bg-gray-600";
     }
@@ -266,9 +266,9 @@ export default function FleetManagement() {
   const handleEdit = (vehicle) => {
     setEditingVehicle({
       ...vehicle,
-      lastMaintenanceDate: vehicle.lastMaintenanceDate
-        ? new Date(vehicle.lastMaintenanceDate).toISOString().split("T")[0]
-        : "",
+      // lastMaintenanceDate: vehicle.lastMaintenanceDate
+      //   ? new Date(vehicle.lastMaintenanceDate).toISOString().split("T")[0]
+      //   : "",
     });
     setIsEditModalOpen(true);
   };
@@ -282,9 +282,9 @@ export default function FleetManagement() {
     try {
       const response = await axios.put(`https://panalsbackend-production.up.railway.app/api/vehicles/${editingVehicle._id}`, {
         ...editingVehicle,
-        lastMaintenanceDate: editingVehicle.lastMaintenanceDate
-          ? new Date(editingVehicle.lastMaintenanceDate)
-          : null,
+        // lastMaintenanceDate: editingVehicle.lastMaintenanceDate
+        //   ? new Date(editingVehicle.lastMaintenanceDate)
+        //   : null,
       });
       setCurrentVehicles((prev) =>
         prev.map((v) => (v._id === editingVehicle._id ? { ...response.data, driver: response.data.assignedDriver || { name: "Unassigned", _id: "N/A", verified: false, phone: "N/A" } } : v))
@@ -351,7 +351,7 @@ export default function FleetManagement() {
     try {
       const response = await axios.post("https://panalsbackend-production.up.railway.app/api/vehicles", {
         ...newVehicle,
-        lastMaintenanceDate: newVehicle.lastMaintenanceDate ? new Date(newVehicle.lastMaintenanceDate) : null,
+        // lastMaintenanceDate: newVehicle.lastMaintenanceDate ? new Date(newVehicle.lastMaintenanceDate) : null,
       });
       setCurrentVehicles((prev) => [
         ...prev,
@@ -370,13 +370,13 @@ export default function FleetManagement() {
         registrationNumber: "",
         model: "",
         vehicleType: "Car",
-        category: "Ride",
+        category: "Trip",
         fuelType: "Petrol",
         capacity: "",
         year: "",
         color: "",
         status: "Active",
-        lastMaintenanceDate: "",
+        // lastMaintenanceDate: "",
         assignedDriver: null,
       });
       setErrors({});
@@ -393,7 +393,7 @@ export default function FleetManagement() {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-white">Fleet Management</h1>
-          <p className="text-gray-400 mt-1">Manage all vehicles across Ride, Food Delivery, and Courier services</p>
+          <p className="text-gray-400 mt-1">Manage all vehicles across Trip, Food Delivery, and Courier services</p>
         </div>
         <button
           className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md"
@@ -438,7 +438,7 @@ export default function FleetManagement() {
               className="bg-gray-800 border border-gray-700 text-white p-2 rounded-md w-full md:w-[180px]"
             >
               <option value="All">All Types</option>
-              <option value="Ride">Ride</option>
+              <option value="Ride">Trip</option>
               <option value="Food Delivery">Food Delivery</option>
               <option value="Courier Delivery">Courier</option>
             </select>
@@ -450,8 +450,50 @@ export default function FleetManagement() {
               <option value="All">All Status</option>
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
-              <option value="Maintenance">Maintenance</option>
+              {/* <option value="Maintenance">Maintenance</option> */}
             </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Summary Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-gray-900 border border-gray-800 rounded-lg">
+          <div className="p-6">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-white">{currentVehicles.length}</p>
+              <p className="text-gray-400 text-sm">Total Vehicles</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-gray-900 border border-gray-800 rounded-lg">
+          <div className="p-6">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-green-400">
+                {currentVehicles.filter((v) => v.status === "Active").length}
+              </p>
+              <p className="text-gray-400 text-sm">Active</p>
+            </div>
+          </div>
+        </div>
+        {/* <div className="bg-gray-900 border border-gray-800 rounded-lg">
+          <div className="p-6">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-yellow-400">
+                {currentVehicles.filter((v) => v.status === "Maintenance").length}
+              </p>
+              <p className="text-gray-400 text-sm">Maintenance</p>
+            </div>
+          </div>
+        </div> */}
+        <div className="bg-gray-900 border border-gray-800 rounded-lg">
+          <div className="p-6">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-gray-400">
+                {currentVehicles.filter((v) => v.status === "Inactive").length}
+              </p>
+              <p className="text-gray-400 text-sm">Inactive</p>
+            </div>
           </div>
         </div>
       </div>
@@ -569,8 +611,8 @@ export default function FleetManagement() {
                     <line x1="8" y1="2" x2="8" y2="6"></line>
                     <line x1="3" y1="10" x2="21" y2="10"></line>
                   </svg>
-                  <span className="text-gray-400">Last Service:</span>
-                  <span className="text-white">{vehicle.lastMaintenanceDate ? new Date(vehicle.lastMaintenanceDate).toLocaleDateString() : "N/A"}</span>
+                  {/* <span className="text-gray-400">Last Service:</span>
+                  <span className="text-white">{vehicle.lastMaintenanceDate ? new Date(vehicle.lastMaintenanceDate).toLocaleDateString() : "N/A"}</span> */}
                 </div>
 
                 <div className="flex space-x-2 pt-2">
@@ -645,48 +687,6 @@ export default function FleetManagement() {
         ))}
       </div>
 
-      {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-gray-900 border border-gray-800 rounded-lg">
-          <div className="p-6">
-            <div className="text-center">
-              <p className="text-2xl font-bold text-white">{currentVehicles.length}</p>
-              <p className="text-gray-400 text-sm">Total Vehicles</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-lg">
-          <div className="p-6">
-            <div className="text-center">
-              <p className="text-2xl font-bold text-green-400">
-                {currentVehicles.filter((v) => v.status === "Active").length}
-              </p>
-              <p className="text-gray-400 text-sm">Active</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-lg">
-          <div className="p-6">
-            <div className="text-center">
-              <p className="text-2xl font-bold text-yellow-400">
-                {currentVehicles.filter((v) => v.status === "Maintenance").length}
-              </p>
-              <p className="text-gray-400 text-sm">Maintenance</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-lg">
-          <div className="p-6">
-            <div className="text-center">
-              <p className="text-2xl font-bold text-gray-400">
-                {currentVehicles.filter((v) => v.status === "Inactive").length}
-              </p>
-              <p className="text-gray-400 text-sm">Inactive</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Vehicle Details Modal */}
       {isModalOpen && selectedVehicle && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -713,8 +713,8 @@ export default function FleetManagement() {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-400">Type:</span>
-                        <span 
-                           className="text-white">{selectedVehicle.vehicleType || "N/A"}</span>
+                        <span
+                          className="text-white">{selectedVehicle.vehicleType || "N/A"}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-400">Category:</span>
@@ -813,7 +813,7 @@ export default function FleetManagement() {
                       onChange={(e) => setNewVehicle({ ...newVehicle, category: e.target.value })}
                       className="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-md"
                     >
-                      <option value="Ride">Ride</option>
+                      <option value="Ride">Trip</option>
                       <option value="Food Delivery">Food Delivery</option>
                       <option value="Courier Delivery">Courier</option>
                     </select>
@@ -870,10 +870,10 @@ export default function FleetManagement() {
                     >
                       <option value="Active">Active</option>
                       <option value="Inactive">Inactive</option>
-                      <option value="Maintenance">Maintenance</option>
+                      {/* <option value="Maintenance">Maintenance</option> */}
                     </select>
                   </div>
-                  <div>
+                  {/* <div>
                     <label className="text-gray-400 text-sm">Last Maintenance Date</label>
                     <input
                       type="date"
@@ -881,7 +881,7 @@ export default function FleetManagement() {
                       onChange={(e) => setNewVehicle({ ...newVehicle, lastMaintenanceDate: e.target.value })}
                       className="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-md"
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex justify-end space-x-2">
                   <button
@@ -964,7 +964,7 @@ export default function FleetManagement() {
                       onChange={(e) => setEditingVehicle({ ...editingVehicle, category: e.target.value })}
                       className="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-md"
                     >
-                      <option value="Ride">Ride</option>
+                      <option value="Ride">Trip</option>
                       <option value="Food Delivery">Food Delivery</option>
                       <option value="Courier Delivery">Courier</option>
                     </select>
@@ -1021,10 +1021,10 @@ export default function FleetManagement() {
                     >
                       <option value="Active">Active</option>
                       <option value="Inactive">Inactive</option>
-                      <option value="Maintenance">Maintenance</option>
+                      {/* <option value="Maintenance">Maintenance</option> */}
                     </select>
                   </div>
-                  <div>
+                  {/* <div>
                     <label className="text-gray-400 text-sm">Last Maintenance Date</label>
                     <input
                       type="date"
@@ -1032,7 +1032,7 @@ export default function FleetManagement() {
                       onChange={(e) => setEditingVehicle({ ...editingVehicle, lastMaintenanceDate: e.target.value })}
                       className="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-md"
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex justify-end space-x-2">
                   <button

@@ -57,7 +57,7 @@ export default function PaymentsManagement() {
         user: ride.riderName || 'Unknown User',
         userType: 'Customer',
         amount: ride.amount,
-        type: 'Ride Payment',
+        type: 'Trip Payment',
         method: 'Card', 
         status: ride.status,
         date: ride.date || ride.createdAt,
