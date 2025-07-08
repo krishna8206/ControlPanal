@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 
-const socket = io("https://panalsbackend-production.up.railway.app", {
+const socket = io("https://panalsbackend.onrender.com", {
   transports: ["websocket", "polling"],
   reconnection: true,
   reconnectionAttempts: 5,
@@ -58,7 +58,7 @@ export default function FleetManagement() {
   // Fetch vehicles from backend
   async function fetchVehicles() {
     try {
-      const response = await axios.get("https://panalsbackend-production.up.railway.app/api/vehicles", {
+      const response = await axios.get("https://panalsbackend.onrender.com/api/vehicles", {
         params: { status: statusFilter !== "All" ? statusFilter : undefined },
       });
 
@@ -248,7 +248,7 @@ export default function FleetManagement() {
   const getStatusColor = (status) => {
     switch (status) {
       case "Active":
-        return "bg-green-600";
+        return "bg-orange-600";
       case "Inactive":
         return "bg-gray-600";
       // case "Maintenance":
@@ -280,7 +280,7 @@ export default function FleetManagement() {
       return;
     }
     try {
-      const response = await axios.put(`https://panalsbackend-production.up.railway.app/api/vehicles/${editingVehicle._id}`, {
+      const response = await axios.put(`https://panalsbackend.onrender.com/api/vehicles/${editingVehicle._id}`, {
         ...editingVehicle,
         // lastMaintenanceDate: editingVehicle.lastMaintenanceDate
         //   ? new Date(editingVehicle.lastMaintenanceDate)
@@ -310,7 +310,7 @@ export default function FleetManagement() {
       return;
     }
     try {
-      const response = await axios.put(`https://panalsbackend-production.up.railway.app/api/vehicles/${linkingDriver._id}/driver`, {
+      const response = await axios.put(`https://panalsbackend.onrender.com/api/vehicles/${linkingDriver._id}/driver`, {
         driverId: driverIdInput,
       });
       setCurrentVehicles((prev) =>
@@ -327,7 +327,7 @@ export default function FleetManagement() {
 
   const handleSuspend = async (vehicleId) => {
     try {
-      const response = await axios.put(`https://panalsbackend-production.up.railway.app/api/vehicles/${vehicleId}/status`, {
+      const response = await axios.put(`https://panalsbackend.onrender.com/api/vehicles/${vehicleId}/status`, {
         status: "Inactive",
       });
       setCurrentVehicles((prev) =>
@@ -349,7 +349,7 @@ export default function FleetManagement() {
       return;
     }
     try {
-      const response = await axios.post("https://panalsbackend-production.up.railway.app/api/vehicles", {
+      const response = await axios.post("https://panalsbackend.onrender.com/api/vehicles", {
         ...newVehicle,
         // lastMaintenanceDate: newVehicle.lastMaintenanceDate ? new Date(newVehicle.lastMaintenanceDate) : null,
       });
@@ -396,7 +396,7 @@ export default function FleetManagement() {
           <p className="text-gray-400 mt-1">Manage all vehicles across Trip, Food Delivery, and Courier services</p>
         </div>
         <button
-          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md"
+          className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md"
           onClick={() => setIsAddModalOpen(true)}
         >
           Add Vehicle
@@ -469,7 +469,7 @@ export default function FleetManagement() {
         <div className="bg-gray-900 border border-gray-800 rounded-lg">
           <div className="p-6">
             <div className="text-center">
-              <p className="text-2xl font-bold text-green-400">
+              <p className="text-2xl font-bold text-white">
                 {currentVehicles.filter((v) => v.status === "Active").length}
               </p>
               <p className="text-gray-400 text-sm">Active</p>
@@ -501,7 +501,7 @@ export default function FleetManagement() {
       {/* Vehicle Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredVehicles.map((vehicle) => (
-          <div key={vehicle._id} className="bg-gray-900 border border-gray-800 hover:border-green-500 transition-colors rounded-lg">
+          <div key={vehicle._id} className="bg-gray-900 border border-gray-800 hover:border-white transition-colors rounded-lg">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
@@ -560,7 +560,7 @@ export default function FleetManagement() {
                 <div className="bg-gray-800 p-3 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
                     <p className="text-gray-400 text-sm">Linked Driver</p>
-                    <span className={`${vehicle.driver?.verified ? "bg-green-600" : "bg-gray-600"} text-white px-2 py-1 rounded-full text-xs`}>
+                    <span className={`${vehicle.driver?.verified ? "bg-orange-600" : "bg-gray-600"} text-white px-2 py-1 rounded-full text-xs`}>
                       {vehicle.driver?.verified ? "Verified" : "Pending"}
                     </span>
                   </div>
@@ -745,7 +745,7 @@ export default function FleetManagement() {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-400">Status:</span>
-                        <span className={`${selectedVehicle.driver?.verified ? "bg-green-600" : "bg-gray-600"} text-white px-2 py-1 rounded-full text-xs`}>
+                        <span className={`${selectedVehicle.driver?.verified ? "bg-orange-600" : "bg-gray-600"} text-white px-2 py-1 rounded-full text-xs`}>
                           {selectedVehicle.driver?.verified ? "Verified" : "Pending"}
                         </span>
                       </div>
@@ -894,7 +894,7 @@ export default function FleetManagement() {
                     Cancel
                   </button>
                   <button
-                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md"
+                    className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md"
                     onClick={handleAddVehicle}
                   >
                     Add Vehicle
@@ -1045,7 +1045,7 @@ export default function FleetManagement() {
                     Cancel
                   </button>
                   <button
-                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md"
+                    className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md"
                     onClick={handleSaveEdit}
                   >
                     Save Changes
@@ -1087,7 +1087,7 @@ export default function FleetManagement() {
                     Cancel
                   </button>
                   <button
-                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md"
+                    className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md"
                     onClick={handleSaveDriverLink}
                   >
                     Link Driver

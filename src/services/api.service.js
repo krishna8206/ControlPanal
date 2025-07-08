@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = process.env.REACT_APP_API_URL || "https://panalsbackend-production.up.railway.app/api"
+const API_URL = process.env.REACT_APP_API_URL || "https://panalsbackend.onrender.com/api"
 
 // Create axios instance
 const api = axios.create({

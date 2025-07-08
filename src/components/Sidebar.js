@@ -97,7 +97,7 @@ export default function Sidebar({ isOpen, onToggle }) {
               <Menu className="h-5 w-5" />
             </button>
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center">
                 <Globe className="h-4 w-4 text-white" />
               </div>
               <div>
@@ -128,8 +128,8 @@ export default function Sidebar({ isOpen, onToggle }) {
           <div className="border-b border-gray-800 bg-[#050505] p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center">
-                  <Globe className="h-6 w-6 text-white" />
+                <div className="h-10 rounded-xl flex items-center justify-center">
+                <img src='./Idhar Udhar Logo1.png' width={"60px"}></img>
                 </div>
                 <div className="min-w-0 flex-1">
                   <h2 className="text-xl font-bold text-white truncate">IdharUdhar</h2>
@@ -167,7 +167,7 @@ export default function Sidebar({ isOpen, onToggle }) {
                     className={`
                       flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 group
                       ${isActive 
-                        ? 'bg-green-600 text-white' 
+                        ? 'bg-orange-600 text-white' 
                         : 'text-gray-300 hover:text-white hover:bg-gray-800'
                       }
                     `}
@@ -188,7 +188,7 @@ export default function Sidebar({ isOpen, onToggle }) {
           {/* Footer */}
           <div className="border-t border-gray-800 bg-[#050505] p-4">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
                 <User className="h-4 w-4 text-white" />
               </div>
               <div className="flex-1 min-w-0">

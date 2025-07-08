@@ -34,6 +34,7 @@ import {
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { io } from "socket.io-client"
+import { IndianRupee } from "lucide-react"
 
 // Skeleton loading components
 const CardSkeleton = () => (
@@ -226,15 +227,15 @@ export default function ReportsEarning() {
       })
 
       const [summaryResponse, earningsResponse, driverResponse] = await Promise.all([
-        fetch(`https://panalsbackend-production.up.railway.app/api/reports/summary?${params}`).catch((e) => {
+        fetch(`https://panalsbackend.onrender.com/api/reports/summary?${params}`).catch((e) => {
           console.error("Summary API error:", e)
           return null
         }),
-        fetch(`https://panalsbackend-production.up.railway.app/api/reports/earnings?${params}`).catch((e) => {
+        fetch(`https://panalsbackend.onrender.com/api/reports/earnings?${params}`).catch((e) => {
           console.error("Earnings API error:", e)
           return null
         }),
-        fetch(`https://panalsbackend-production.up.railway.app/api/reports/driver-performance?${params}`).catch((e) => {
+        fetch(`https://panalsbackend.onrender.com/api/reports/driver-performance?${params}`).catch((e) => {
           console.error("Driver API error:", e)
           return null
         }),
@@ -289,7 +290,7 @@ export default function ReportsEarning() {
     }
 
     console.log("🔌 Initializing Socket.IO connection...")
-    const newSocket = io("https://panalsbackend-production.up.railway.app", {
+    const newSocket = io("https://panalsbackend.onrender.com", {
       transports: ["websocket", "polling"],
       timeout: 20000,
       reconnection: true,
@@ -613,7 +614,7 @@ export default function ReportsEarning() {
                 onClick={() => handleTimeRangeChange("day")}
                 className={`px-3 py-1 rounded-lg text-sm font-medium transition-all ${
                   timeRange === "day"
-                    ? "bg-indigo-600 text-white shadow-md"
+                    ? "bg-orange-600 text-white shadow-md"
                     : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                 }`}
               >
@@ -623,7 +624,7 @@ export default function ReportsEarning() {
                 onClick={() => handleTimeRangeChange("week")}
                 className={`px-3 py-1 rounded-lg text-sm font-medium transition-all ${
                   timeRange === "week"
-                    ? "bg-indigo-600 text-white shadow-md"
+                    ? "bg-orange-600 text-white shadow-md"
                     : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                 }`}
               >
@@ -633,7 +634,7 @@ export default function ReportsEarning() {
                 onClick={() => handleTimeRangeChange("month")}
                 className={`px-3 py-1 rounded-lg text-sm font-medium transition-all ${
                   timeRange === "month"
-                    ? "bg-indigo-600 text-white shadow-md"
+                    ? "bg-orange-600 text-white shadow-md"
                     : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                 }`}
               >
@@ -689,7 +690,7 @@ export default function ReportsEarning() {
 
               <button
                 onClick={handleExport}
-                className="flex items-center px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm"
+                className="flex items-center px-4 py-2 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 transition-colors shadow-sm"
                 disabled={!hasData}
               >
                 <FiDownload className="mr-2" /> Export
@@ -703,34 +704,34 @@ export default function ReportsEarning() {
           <button
             onClick={() => setActiveTab("earnings")}
             className={`px-6 py-3 font-medium text-sm relative ${
-              activeTab === "earnings" ? "text-indigo-400" : "text-gray-400 hover:text-gray-300"
+              activeTab === "earnings" ? "text-orange-600" : "text-gray-400 hover:text-gray-300"
             }`}
           >
             Earnings
             {activeTab === "earnings" && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-400 rounded-full"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-600 rounded-full"></div>
             )}
           </button>
           <button
             onClick={() => setActiveTab("rides")}
             className={`px-6 py-3 font-medium text-sm relative ${
-              activeTab === "rides" ? "text-indigo-400" : "text-gray-400 hover:text-gray-300"
+              activeTab === "rides" ? "text-orange-600" : "text-gray-400 hover:text-gray-300"
             }`}
           >
             Trips
             {activeTab === "rides" && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-400 rounded-full"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-600 rounded-full"></div>
             )}
           </button>
           <button
             onClick={() => setActiveTab("drivers")}
             className={`px-6 py-3 font-medium text-sm relative ${
-              activeTab === "drivers" ? "text-indigo-400" : "text-gray-400 hover:text-gray-300"
+              activeTab === "drivers" ? "text-orange-600" : "text-gray-400 hover:text-gray-300"
             }`}
           >
             Drivers
             {activeTab === "drivers" && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-400 rounded-full"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-600 rounded-full"></div>
             )}
           </button>
         </div>
@@ -751,11 +752,11 @@ export default function ReportsEarning() {
                   <div>
                     <p className="text-gray-400 text-sm font-medium">Total Earnings</p>
                     <p className="text-2xl font-bold text-white mt-1">
-                      ${summaryData.totalEarnings?.toLocaleString() || "0.00"}
+                      ₹{summaryData.totalEarnings?.toLocaleString() || "0.00"}
                     </p>
                   </div>
                   <div className="p-2 rounded-lg bg-indigo-900/30 text-indigo-300">
-                    <FiDollarSign size={20} />
+                     <IndianRupee className="h-4 w-4" />
                   </div>
                 </div>
                 <div className="mt-4 flex items-center text-sm">
@@ -793,11 +794,11 @@ export default function ReportsEarning() {
                   <div>
                     <p className="text-gray-400 text-sm font-medium">Avg. per Trip</p>
                     <p className="text-2xl font-bold text-white mt-1">
-                      ${summaryData.averageEarningPerRide?.toFixed(2) || "0.00"}
+                      ₹{summaryData.averageEarningPerRide?.toFixed(2) || "0.00"}
                     </p>
                   </div>
                   <div className="p-2 rounded-lg bg-amber-900/30 text-amber-300">
-                    <FiDollarSign size={20} />
+                     <IndianRupee className="h-4 w-4" />  
                   </div>
                 </div>
                 <div className="mt-4 flex items-center text-sm">
@@ -860,7 +861,7 @@ export default function ReportsEarning() {
                   <div className="flex justify-between items-center mb-5">
                     <h2 className="text-lg font-semibold text-white">Earnings Overview</h2>
                     <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 rounded-full bg-indigo-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-orange-600"></div>
                       <span className="text-xs text-gray-400">Total Earnings</span>
                     </div>
                   </div>
@@ -876,7 +877,7 @@ export default function ReportsEarning() {
                           </defs>
                           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" strokeOpacity={0.1} />
                           <XAxis dataKey="name" stroke="#6B7280" tick={{ fontSize: 12 }} />
-                          <YAxis stroke="#6B7280" tickFormatter={(value) => `$${value}`} />
+                          <YAxis stroke="#6B7280" tickFormatter={(value) => `₹${value}`} />
                           <Tooltip
                             contentStyle={{
                               backgroundColor: "#1F2937",
@@ -885,15 +886,15 @@ export default function ReportsEarning() {
                               color: "#F9FAFB",
                               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                             }}
-                            formatter={(value) => [`$${value}`, "Earnings"]}
+                            formatter={(value) => [`₹${value}`, "Earnings"]}
                           />
                           <Area
                             type="monotone"
                             dataKey="earnings"
-                            stroke="#6366F1"
+                            stroke="orange"
                             strokeWidth={2}
                             fillOpacity={1}
-                            fill="url(#colorEarnings)"
+                            fill="orange"
                           />
                         </AreaChart>
                       </ResponsiveContainer>
@@ -916,16 +917,16 @@ export default function ReportsEarning() {
                           <BarChart data={chartData}>
                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
                             <XAxis dataKey="name" stroke="#6B7280" tick={{ fontSize: 12 }} />
-                            <YAxis stroke="#6B7280" tickFormatter={(value) => `$${value}`} />
+                            <YAxis stroke="#6B7280" tickFormatter={(value) => `₹${value}`} />
                             <Tooltip
-                              formatter={(value) => [`$${value}`, "Earnings"]}
+                              formatter={(value) => [`₹${value}`, "Earnings"]}
                               contentStyle={{
                                 backgroundColor: "#1F2937",
                                 borderColor: "#374151",
                                 borderRadius: "0.5rem",
                               }}
                             />
-                            <Bar dataKey="earnings" fill="#6366F1" radius={[4, 4, 0, 0]} animationDuration={1500} />
+                            <Bar dataKey="earnings" fill="orange" radius={[4, 4, 0, 0]} animationDuration={1500} />
                           </BarChart>
                         </ResponsiveContainer>
                       ) : (
@@ -943,32 +944,32 @@ export default function ReportsEarning() {
                           <LineChart data={chartData}>
                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
                             <XAxis dataKey="name" stroke="#6B7280" tick={{ fontSize: 12 }} />
-                            <YAxis yAxisId="left" stroke="#6366F1" tickFormatter={(value) => `$${value}`} />
-                            <YAxis yAxisId="right" orientation="right" stroke="#10B981" />
+                            <YAxis yAxisId="left" stroke="green" tickFormatter={(value) => `₹${value}`} />
+                            <YAxis yAxisId="right" orientation="right" stroke="orange" />
                             <Tooltip
                               contentStyle={{
                                 backgroundColor: "#1F2937",
                                 borderColor: "#374151",
                                 borderRadius: "0.5rem",
                               }}
-                              formatter={(value, name) => [name === "Earnings" ?` $${value}` : value, name]}
+                              formatter={(value, name) => [name === "Earnings" ?` ₹${value}` : value, name]}
                             />
                             <Legend />
                             <Line
                               yAxisId="left"
                               type="monotone"
                               dataKey="earnings"
-                              stroke="#6366F1"
+                              stroke="green"
                               strokeWidth={2}
                               dot={{ r: 3 }}
-                              name="Earnings ($)"
+                              name="Earnings (₹)"
                               animationDuration={1500}
                             />
                             <Line
                               yAxisId="right"
                               type="monotone"
                               dataKey="rides"
-                              stroke="#10B981"
+                              stroke="orange"
                               strokeWidth={2}
                               dot={{ r: 3 }}
                               name="Rides"
@@ -1001,7 +1002,7 @@ export default function ReportsEarning() {
                             cy="50%"
                             labelLine={false}
                             outerRadius={80}
-                            fill="#8884d8"
+                            fill="orange"
                             dataKey="earnings"
                             nameKey="name"
                             label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}

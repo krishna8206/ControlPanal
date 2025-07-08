@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react"
 import axios from "axios"
+import { IndianRupee } from "lucide-react";
 
 // API instance configured to connect to your backend
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://panalsbackend-production.up.railway.app/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://panalsbackend.onrender.com/api",
 });
 
 // Helper function to format date strings
@@ -127,7 +128,7 @@ export default function PaymentsManagement() {
   }
 
   const getTypeColor = (type) => {
-    if (type.includes("Payout")) return "border border-green-500 text-green-400"
+    if (type.includes("Payout")) return "border border-white text-green-400"
     if (type.includes("Payment") || type.includes("Order")) return "border border-blue-500 text-blue-400"
     return "border border-gray-500 text-gray-400"
   }
@@ -182,7 +183,7 @@ export default function PaymentsManagement() {
           <h1 className="text-2xl sm:text-3xl font-bold text-white">Payments Management</h1>
           <p className="text-gray-400 mt-1 text-sm sm:text-base">Monitor and manage all payments and payouts</p>
         </div>
-        <button onClick={handleExport} className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md flex items-center w-full sm:w-auto justify-center">
+        <button onClick={handleExport} className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md flex items-center w-full sm:w-auto justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           Export to CSV
         </button>
@@ -238,11 +239,11 @@ export default function PaymentsManagement() {
              <div className="text-center text-gray-400 py-8">Loading transactions...</div>
         ) : filteredTransactions.length > 0 ? (
           filteredTransactions.map((payment) => (
-            <div key={payment.id} className="bg-gray-900 border border-gray-800 hover:border-green-500 transition-colors rounded-lg">
+            <div key={payment.id} className="bg-gray-900 border border-gray-800 hover:border-white transition-colors rounded-lg">
               <div className="p-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-4">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-white"><rect x="2" y="4" width="20" height="16" rx="2"></rect><rect x="6" y="8" width="8" height="8"></rect><line x1="18" y1="12" x2="18.01" y2="12"></line></svg></div>
+                    <div className="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-white"><rect x="2" y="4" width="20" height="16" rx="2"></rect><rect x="6" y="8" width="8" height="8"></rect><line x1="18" y1="12" x2="18.01" y2="12"></line></svg></div>
                     <div>
                       <h3 className="text-white font-medium text-lg capitalize">{payment.type}</h3>
                       <div className="flex items-center flex-wrap gap-2 mt-1">
@@ -260,7 +261,7 @@ export default function PaymentsManagement() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   <div className="bg-gray-800 p-3 rounded-lg"><div className="flex items-center space-x-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-blue-400"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span className="text-blue-400 font-medium">User Details</span></div><p className="text-white font-medium">{payment.user}</p><p className="text-gray-400 text-sm">{payment.userType}</p></div>
                   <div className="bg-gray-800 p-3 rounded-lg"><div className="flex items-center space-x-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-green-400"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span className="text-green-400 font-medium">Transaction</span></div><p className="text-white text-sm break-all">{payment.transactionId}</p><p className="text-gray-400 text-xs">{formatDateTime(payment.date)}</p></div>
-                  <div className="bg-gray-800 p-3 rounded-lg"><div className="flex items-center space-x-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-purple-400"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg><span className="text-purple-400 font-medium">Commission</span></div><p className="text-white font-medium">₹{payment.commission.toFixed(2)}</p><p className="text-gray-400 text-xs">{payment.amount ? ((payment.commission / payment.amount) * 100).toFixed(1) : 0}% of total</p></div>
+                  <div className="bg-gray-800 p-3 rounded-lg"><div className="flex items-center space-x-2 mb-2"><IndianRupee className="h-4 w-4 text-purple-400" /><span className="text-purple-400 font-medium">Commission</span></div><p className="text-white font-medium">₹{payment.commission.toFixed(2)}</p><p className="text-gray-400 text-xs">{payment.amount ? ((payment.commission / payment.amount) * 100).toFixed(1) : 0}% of total</p></div>
                 </div>
                 <div className="flex flex-wrap gap-2"><button className="border border-gray-700 text-gray-400 hover:bg-gray-800 px-3 py-1 rounded-md text-sm flex items-center" onClick={() => handleView(payment)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>View Details</button></div>
               </div>

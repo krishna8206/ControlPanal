@@ -5,7 +5,7 @@ import axios from "axios"
 
 // API instance configured to connect to your backend
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://panalsbackend-production.up.railway.app/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://panalsbackend.onrender.com/api",
 });
 
 // Helper function to format date strings
@@ -148,7 +148,7 @@ export default function UserManagement() {
           <p className="text-gray-400 mt-1 text-center md:text-left">Manage customers, drivers, and vendors</p>
         </div>
         {/* UPDATED: Button now opens the modal */}
-        <button onClick={() => setIsAddUserModalOpen(true)} className="bg-green-600 hover:bg-green-700 text-white w-full md:w-auto px-4 py-2 rounded-md">
+        <button onClick={() => setIsAddUserModalOpen(true)} className="bg-orange-600 hover:bg-orange-700 text-white w-full md:w-auto px-4 py-2 rounded-md">
           Add User
         </button>
       </div>
@@ -179,11 +179,11 @@ export default function UserManagement() {
       ) : (
       <div className="space-y-4">
         {users.map((user) => (
-          <div key={user._id} className="bg-gray-900 border border-gray-800 hover:border-green-500 transition-colors rounded-lg">
+          <div key={user._id} className="bg-gray-900 border border-gray-800 hover:border-white transition-colors rounded-lg">
             <div className="p-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-4">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-white"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                  <div className="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-white"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
                   <div>
                     <h3 className="text-white font-medium text-lg">{user.name}</h3>
                     <div className="flex flex-wrap gap-2 mt-1">
@@ -300,7 +300,7 @@ export default function UserManagement() {
                         {/* Action Buttons */}
                         <div className="flex justify-end gap-4 pt-4">
                             <button type="button" onClick={() => setIsAddUserModalOpen(false)} className="border border-gray-700 text-gray-400 px-4 py-2 rounded-md">Cancel</button>
-                            <button type="submit" disabled={isSubmitting} className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md disabled:bg-gray-500">
+                            <button type="submit" disabled={isSubmitting} className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md disabled:bg-gray-500">
                                 {isSubmitting ? 'Saving...' : 'Save User'}
                             </button>
                         </div>

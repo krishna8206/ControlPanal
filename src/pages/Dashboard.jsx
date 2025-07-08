@@ -9,7 +9,8 @@ import {
   MapPin,
   Phone,
   Navigation,
-  TrendingDown
+  TrendingDown,
+  IndianRupee
 } from 'lucide-react';
 import { dashboardAPI, driverAPI } from '../services/api.service.js';
 import { useDashboardSocket, useDriverSocket } from '../hooks/useSocket.js';
@@ -131,7 +132,7 @@ export default function Dashboard() {
   const getStatusColor = (status) => {
     switch (status) {
       case "active": return "bg-blue-600";     // Interpreted as "On-Trip"
-      case "idle": return "bg-green-600";     // Interpreted as "Online"
+      case "idle": return "bg-orange-600";     // Interpreted as "Online"
       case "offline": return "bg-gray-600";
       case "emergency": return "bg-red-600";
       default: return "bg-yellow-600";
@@ -177,7 +178,7 @@ export default function Dashboard() {
         </div>
         <div className="text-right">
           <p className="text-sm text-gray-400">Current Time</p>
-          <p className="text-lg font-mono text-green-400">{currentTime}</p>
+          <p className="text-lg font-mono text-orange-600">{currentTime}</p>
         </div>
       </div>
 
@@ -185,7 +186,7 @@ export default function Dashboard() {
       <div className="bg-gray-900 border border-gray-800 rounded-lg">
         <div className="p-6 border-b border-gray-800">
           <h2 className="text-white flex items-center text-xl">
-            <MapPin className="h-5 w-5 mr-2 text-green-400" />
+            <MapPin className="h-5 w-5 mr-2 text-orange-600" />
             Live Driver Tracking
           </h2>
         </div>
@@ -195,13 +196,13 @@ export default function Dashboard() {
             <div className="h-80 bg-gray-800 rounded-lg flex items-center justify-center relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-green-900/20 to-blue-900/20"></div>
               <div className="text-center z-10">
-                <MapPin className="h-16 w-16 text-green-400 mx-auto mb-4" />
+                <MapPin className="h-16 w-16 text-orange-600 mx-auto mb-4" />
                 <p className="text-white text-lg font-medium">Interactive Map</p>
                 <p className="text-gray-400">Real-time driver locations will appear here</p>
               </div>
               {/* Pulsing dots representing live drivers */}
               {liveDrivers.slice(0, 5).map(driver => (
-                <div key={driver._id} className="absolute w-3 h-3 bg-green-400 rounded-full animate-pulse" style={{ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` }}></div>
+                <div key={driver._id} className="absolute w-3 h-3 bg-orange-600 rounded-full animate-pulse" style={{ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` }}></div>
               ))}
             </div>
 
@@ -210,7 +211,7 @@ export default function Dashboard() {
               {liveDrivers.length > 0 ? liveDrivers.map((driver) => (
                 <div
                   key={driver._id}
-                  className={`p-3 bg-gray-800 rounded-lg border-2 transition-colors ${selectedDriver === driver._id ? "border-green-500" : "border-transparent"
+                  className={`p-3 bg-gray-800 rounded-lg border-2 transition-colors ${selectedDriver === driver._id ? "border-white" : "border-transparent"
                     }`}
                 >
                   <div className="flex items-center justify-between mb-2">
@@ -233,7 +234,7 @@ export default function Dashboard() {
                     </button>
                     <button
                       onClick={() => handleTrack(driver._id)}
-                      className="flex items-center px-3 py-1 text-xs bg-green-600 hover:bg-green-700 text-white rounded"
+                      className="flex items-center px-3 py-1 text-xs bg-orange-600 hover:bg-orange-700 text-white rounded"
                     >
                       <Navigation className="h-3 w-3 mr-1" />
                       Track
@@ -252,7 +253,7 @@ export default function Dashboard() {
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-medium text-gray-400">Today's Trips</h3>
-              <Car className="h-4 w-4 text-green-400" />
+              <Car className="h-4 w-4 text-orange-600" />
             </div>
             <div className="text-2xl font-bold text-white">{stats.todayRides}</div>
             <GrowthIndicator value={stats.ridesPercentageChange} />
@@ -261,7 +262,7 @@ export default function Dashboard() {
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-medium text-gray-400">Online Drivers</h3>
-              <Users className="h-4 w-4 text-green-400" />
+              <Users className="h-4 w-4 text-orange-600" />
             </div>
             <div className="text-2xl font-bold text-white">{stats.totalDrivers}</div>
             <div className="text-xs text-gray-400">+{stats.newDriversThisWeek} New This Week</div>
@@ -271,7 +272,7 @@ export default function Dashboard() {
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-medium text-gray-400">Today's Income</h3>
-              <DollarSign className="h-4 w-4 text-green-400" />
+           <IndianRupee className="h-4 w-4 text-orange-600" />  
             </div>
             <div className="text-2xl font-bold text-white">₹{parseFloat(stats.todayIncome).toLocaleString()}</div>
             <GrowthIndicator value={stats.incomePercentageChange} />
@@ -280,11 +281,11 @@ export default function Dashboard() {
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-medium text-gray-400">Completed Trips</h3>
-              <CheckCircle className="h-4 w-4 text-green-400" />
+              <CheckCircle className="h-4 w-4 text-orange-600" />
             </div>
             <div className="text-2xl font-bold text-white">{stats.completedRides}</div>
-            <div className="text-xs text-green-400">{stats.successRate}% From Yesterday</div>
-            <div className="text-xs mt-2 text-green-400">{stats.successRate}% From SDLW</div>
+            <div className="text-xs ">{stats.successRate}% From Yesterday</div>
+            <div className="text-xs mt-2 ">{stats.successRate}% From SDLW</div>
           </div>
 
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
@@ -310,7 +311,7 @@ export default function Dashboard() {
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
                   className={`px-3 py-1 text-sm rounded ${activeFilter === filter
-                      ? "bg-green-600 hover:bg-green-700 text-white"
+                      ? "bg-orange-600 hover:bg-orange-700 text-white"
                       : "border border-gray-700 text-gray-400 hover:bg-gray-800"
                     }`}
                 >

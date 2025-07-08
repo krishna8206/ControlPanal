@@ -5,7 +5,7 @@ import axios from "axios"
 
 // API instance configured to connect to your backend
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://panalsbackend-production.up.railway.app/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://panalsbackend.onrender.com/api",
 });
 
 // Helper function to format date strings
@@ -99,7 +99,7 @@ export default function RidesManagement() {
             </div>
             <div className="flex bg-gray-800 border border-gray-700 rounded-md">
               {["All", "Ongoing", "Completed", "Cancelled"].map(tab => (
-                <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 py-2 rounded-md ${activeTab === tab ? "bg-green-600" : ""}`}>
+                <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 py-2 rounded-md ${activeTab === tab ? "bg-orange-600" : ""}`}>
                   {tab}
                 </button>
               ))}
@@ -121,11 +121,11 @@ export default function RidesManagement() {
         </div>
         {filteredRides.length > 0 ? (
           filteredRides.map((ride) => (
-            <div key={ride._id} className="bg-gray-900 border border-gray-800 rounded-lg hover:border-green-500 transition-colors">
+            <div key={ride._id} className="bg-gray-900 border border-gray-800 rounded-lg transition-colors">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center">
                       <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
                     </div>
                     <div>
@@ -138,7 +138,7 @@ export default function RidesManagement() {
                       {ride.status}
                     </span>
                     <div className="text-right">
-                      <p className="text-white font-bold text-lg">{ride.price}</p>
+                      <p className="text-white font-bold text-lg">₹{ride.price}</p>
                       <p className="text-gray-400 text-sm">Payment N/A</p>
                     </div>
                   </div>
@@ -147,7 +147,7 @@ export default function RidesManagement() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                   <div className="space-y-3">
                     <div className="bg-gray-800 p-3 rounded-lg">
-                      <div className="flex items-center space-x-2 mb-2"><svg className="h-4 w-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg><span className="text-green-400 font-medium">Rider</span></div>
+                      <div className="flex items-center space-x-2 mb-2"><svg className="h-4 w-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg><span className="text-orange-600 font-medium">Rider</span></div>
                       <p className="text-white font-medium">{ride.riderName}</p>
                       <p className="text-gray-400 text-sm">ID: {ride.riderId}</p>
                     </div>
@@ -159,7 +159,7 @@ export default function RidesManagement() {
                   </div>
                   <div className="space-y-3">
                     <div className="bg-gray-800 p-3 rounded-lg">
-                      <div className="flex items-center space-x-2 mb-2"><svg className="h-4 w-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span className="text-green-400 font-medium">Pickup</span></div>
+                      <div className="flex items-center space-x-2 mb-2"><svg className="h-4 w-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span className="text-orange-600 font-medium">Pickup</span></div>
                       <p className="text-white text-sm">{ride.pickup}</p>
                     </div>
                     <div className="bg-gray-800 p-3 rounded-lg">
@@ -199,9 +199,9 @@ export default function RidesManagement() {
 
             <div className="p-6 border-b border-gray-800">
               <div className="flex bg-gray-800 border border-gray-700 rounded-md">
-                <button onClick={() => setModalTab("Details")} className={`flex-1 px-4 py-2 rounded-l-md ${modalTab === 'Details' ? 'bg-green-600' : ''}`}>Details</button>
-                <button onClick={() => setModalTab("Logs")} className={`flex-1 px-4 py-2 ${modalTab === 'Logs' ? 'bg-green-600' : ''}`}>Logs</button>
-                <button onClick={() => setModalTab("Chat")} className={`flex-1 px-4 py-2 rounded-r-md ${modalTab === 'Chat' ? 'bg-green-600' : ''}`}>Chat</button>
+                <button onClick={() => setModalTab("Details")} className={`flex-1 px-4 py-2 rounded-l-md ${modalTab === 'Details' ? 'bg-orange-600' : ''}`}>Details</button>
+                <button onClick={() => setModalTab("Logs")} className={`flex-1 px-4 py-2 ${modalTab === 'Logs' ? 'bg-orange-600' : ''}`}>Logs</button>
+                <button onClick={() => setModalTab("Chat")} className={`flex-1 px-4 py-2 rounded-r-md ${modalTab === 'Chat' ? 'bg-orange-600' : ''}`}>Chat</button>
               </div>
             </div>
 
@@ -213,7 +213,7 @@ export default function RidesManagement() {
                       <h4 className="text-white font-medium mb-2">Trip Information</h4>
                       <div className="flex justify-between"><span className="text-gray-400">Distance:</span><span className="text-white">{selectedRideData.distance}</span></div>
                       <div className="flex justify-between"><span className="text-gray-400">Duration:</span><span className="text-white">{selectedRideData.duration}</span></div>
-                      <div className="flex justify-between"><span className="text-gray-400">Price:</span><span className="text-white">{selectedRideData.price}</span></div>
+                      <div className="flex justify-between"><span className="text-gray-400">Price:</span><span className="text-white">₹{selectedRideData.price}</span></div>
                     </div>
                     <div className="bg-gray-800 p-4 rounded-lg space-y-2 text-sm">
                       <h4 className="text-white font-medium mb-2">Participants</h4>
@@ -225,7 +225,7 @@ export default function RidesManagement() {
                     <h4 className="text-white font-medium mb-3">Live Location</h4>
                     <div className="h-48 bg-gray-700 rounded-lg flex items-center justify-center">
                       <div className="text-center">
-                        <svg className="h-12 w-12 text-green-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        <svg className="h-12 w-12 text-orange-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                         <p className="text-white">{selectedRideData.currentLocation?.address || "Not Available"}</p>
                         <p className="text-gray-400 text-sm">Last Updated: {selectedRideData.currentLocation?.updatedAt || "N/A"}</p>
                       </div>

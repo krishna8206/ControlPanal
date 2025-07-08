@@ -124,10 +124,10 @@ export default function Login() {
   };
 
   const floatingItems = [
-    { icon: Car, color: "text-green-400", delay: 0, x: 80, y: 100 },
-    { icon: Bike, color: "text-green-400", delay: 0.5, x: 200, y: 60 },
-    { icon: Truck, color: "text-green-400", delay: 1, x: 120, y: 200 },
-    { icon: MapPin, color: "text-green-400", delay: 1.5, x: 250, y: 150 },
+    { icon: Car, color: "text-orange-600", delay: 0, x: 80, y: 100 },
+    { icon: Bike, color: "text-orange-600", delay: 0.5, x: 200, y: 60 },
+    { icon: Truck, color: "text-orange-600", delay: 1, x: 120, y: 200 },
+    { icon: MapPin, color: "text-orange-600", delay: 1.5, x: 250, y: 150 },
   ];
 
   return (
@@ -163,7 +163,7 @@ export default function Login() {
                     repeatDelay: 3,
                   }}
                 >
-                  <div className="bg-gray-700/80 backdrop-blur-sm rounded-2xl p-3 md:p-4 shadow-lg hover:bg-green-700/50 transition-colors duration-300">
+                  <div className="bg-gray-700/80 backdrop-blur-sm rounded-2xl p-3 md:p-4 shadow-lg hover:bg-orange-600 transition-colors duration-300">
                     <item.icon className={`w-6 h-6 md:w-8 md:h-8 ${item.color}`} />
                   </div>
                 </motion.div>
@@ -200,14 +200,14 @@ export default function Login() {
             {/* Main Content */}
             <div className="relative z-10 h-full flex flex-col justify-center">
               <div className="text-center lg:text-left">
-                <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-green-700 rounded-xl md:rounded-2xl mb-6 md:mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-orange-600 rounded-xl md:rounded-2xl mb-6 md:mb-8">
                   <Car className="w-8 h-8 md:w-10 md:h-10 text-white" />
                 </div>
 
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 md:mb-8 font-sans leading-tight">
                   Fast, Easy & Secure
                   <br />
-                  <span className="text-green-400">Rides</span>
+                  <span className="text-orange-600">Trips</span>
                 </h1>
 
                 <p className="text-lg md:text-xl text-gray-400 mb-6 md:mb-8 font-sans">
@@ -216,9 +216,9 @@ export default function Login() {
 
                 <div className="flex flex-wrap gap-2 md:gap-4 justify-center lg:justify-start">
                   {[
-                    { emoji: "🚗", text: "Car Rides" },
-                    { emoji: "🛺", text: "Auto Booking" },
-                    { emoji: "🏍️", text: "Bike Rides" },
+                    // { emoji: "🚗", text: "Car Rides" },
+                    // { emoji: "🛺", text: "Auto Booking" },
+                    // { emoji: "🏍️", text: "Bike Rides" },
                     { emoji: "📦", text: "Porter Service" },
                   ].map((service, index) => (
                     <motion.div
@@ -270,7 +270,7 @@ export default function Login() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter your email"
-                            className="pl-10 md:pl-12 h-11 md:h-12 bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-green-400 focus:ring-green-400 rounded-lg md:rounded-xl text-sm md:text-base w-full focus:outline-none focus:ring-2"
+                            className="pl-10 md:pl-12 h-11 md:h-12 bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-white focus:ring-white rounded-lg md:rounded-xl text-sm md:text-base w-full focus:outline-none focus:ring-2"
                             required
                             disabled={isLoading}
                           />
@@ -287,7 +287,7 @@ export default function Login() {
                       >
                         <button
                           type="submit"
-                          className="w-full h-11 md:h-12 bg-green-700 hover:bg-green-600 text-white font-semibold rounded-lg md:rounded-xl transition-colors relative overflow-hidden group text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full h-11 md:h-12 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg md:rounded-xl transition-colors relative overflow-hidden group text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed"
                           disabled={isLoading}
                         >
                           {isLoading ? (
@@ -298,7 +298,7 @@ export default function Login() {
                           ) : (
                             <>
                               <span className="relative z-10">Continue</span>
-                              <span className="absolute inset-0 bg-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                              <span className="absolute inset-0 bg-orange-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                             </>
                           )}
                         </button>
@@ -328,7 +328,7 @@ export default function Login() {
                       </div>
                       <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 font-sans">Check Your Email</h2>
                       <p className="text-gray-400 mb-2 text-sm md:text-base">We've sent a 6-digit code to</p>
-                      <p className="text-green-400 font-semibold text-sm md:text-base break-all">{email}</p>
+                      <p className="text-orange-600 font-semibold text-sm md:text-base break-all">{email}</p>
                       <p className="text-xs text-gray-500 mt-2">Demo: Use OTP "123456"</p>
                     </div>
 
@@ -349,7 +349,7 @@ export default function Login() {
                                 prevInput?.focus();
                               }
                             }}
-                            className="w-10 h-10 md:w-12 md:h-12 text-center text-lg md:text-xl font-bold bg-gray-800 border border-gray-700 text-white focus:border-green-400 focus:ring-green-400 rounded-lg md:rounded-xl transition-all duration-200 hover:border-green-500 focus:outline-none focus:ring-2"
+                            className="w-10 h-10 md:w-12 md:h-12 text-center text-lg md:text-xl font-bold bg-gray-800 border border-gray-700 text-white focus:border-white focus:ring-white rounded-lg md:rounded-xl transition-all duration-200 hover:border-white focus:outline-none focus:ring-2"
                             disabled={isLoading}
                           />
                         ))}

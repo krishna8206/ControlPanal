@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 
 // Backend URL
-const BACKEND_URL = "https://panalsbackend-production.up.railway.app";
+const BACKEND_URL = "https://panalsbackend.onrender.com";
 
 export default function ComplaintManagement() {
   const [activeTab, setActiveTab] = useState("All");
@@ -221,31 +221,31 @@ export default function ComplaintManagement() {
                 <div className="flex space-x-2 pb-2">
                   <button
                     onClick={() => setActiveTab("All")}
-                    className={`px-3 py-1 rounded-md text-sm ${activeTab === "All" ? "bg-green-600" : "bg-gray-800"}`}
+                    className={`px-3 py-1 rounded-md text-sm ${activeTab === "All" ? "bg-orange-600" : "bg-gray-800"}`}
                   >
                     All
                   </button>
                   <button
                     onClick={() => setActiveTab("Pending")}
-                    className={`px-3 py-1 rounded-md text-sm ${activeTab === "Pending" ? "bg-green-600" : "bg-gray-800"}`}
+                    className={`px-3 py-1 rounded-md text-sm ${activeTab === "Pending" ? "bg-orange-600" : "bg-gray-800"}`}
                   >
                     Pending
                   </button>
                   <button
                     onClick={() => setActiveTab("Investigating")}
-                    className={`px-3 py-1 rounded-md text-sm ${activeTab === "Investigating" ? "bg-green-600" : "bg-gray-800"}`}
+                    className={`px-3 py-1 rounded-md text-sm ${activeTab === "Investigating" ? "bg-orange-600" : "bg-gray-800"}`}
                   >
                     Investigating
                   </button>
                   <button
                     onClick={() => setActiveTab("Resolved")}
-                    className={`px-3 py-1 rounded-md text-sm ${activeTab === "Resolved" ? "bg-green-600" : "bg-gray-800"}`}
+                    className={`px-3 py-1 rounded-md text-sm ${activeTab === "Resolved" ? "bg-orange-600" : "bg-gray-800"}`}
                   >
                     Resolved
                   </button>
                   <button
                     onClick={() => setActiveTab("Refunded")}
-                    className={`px-3 py-1 rounded-md text-sm ${activeTab === "Refunded" ? "bg-green-600" : "bg-gray-800"}`}
+                    className={`px-3 py-1 rounded-md text-sm ${activeTab === "Refunded" ? "bg-orange-600" : "bg-gray-800"}`}
                   >
                     Refunded
                   </button>
@@ -261,14 +261,14 @@ export default function ComplaintManagement() {
                         key={complaint._id} // Use _id from backend
                         className={`p-3 sm:p-4 bg-gray-800 rounded-lg border-2 cursor-pointer transition-colors ${
                           selectedComplaint === complaint._id
-                            ? "border-green-500"
+                            ? "border-white"
                             : "border-transparent hover:border-gray-700"
                         }`}
                         onClick={() => setSelectedComplaint(complaint._id)}
                       >
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 gap-2 sm:gap-0">
                           <div className="flex items-center space-x-3">
-                            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
                               <svg
                                 className="h-4 w-4 sm:h-5 sm:w-5 text-white"
                                 fill="none"
@@ -359,7 +359,7 @@ export default function ComplaintManagement() {
                               {complaint.refundStatus || "Not Applicable"}
                             </span>
                             {complaint.status === "Investigating" && (
-                              <span className="bg-green-600 text-white px-2 py-1 rounded-full text-xs">
+                              <span className="bg-orange-600 text-white px-2 py-1 rounded-full text-xs">
                                 Live Support
                               </span>
                             )}
@@ -446,7 +446,7 @@ export default function ComplaintManagement() {
                                   key={index}
                                   className={`p-2 rounded text-sm ${
                                     message.sender === "Support"
-                                      ? "bg-green-600/20 border-l-2 border-green-500"
+                                      ? "bg-orange-600/20 border-l-2"
                                       : "bg-gray-700"
                                   }`}
                                 >

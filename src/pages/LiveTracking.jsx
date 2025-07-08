@@ -85,7 +85,7 @@ export default function LiveTracking() {
       case "Delivery":
         return "bg-purple-600"
       case "Drop Off":
-        return "bg-green-600"
+        return "bg-orange-600"
       default:
         return "bg-gray-600"
     }
@@ -101,7 +101,7 @@ export default function LiveTracking() {
         </div>
         <div className="text-right">
           <p className="text-sm text-gray-400">Last Updated</p>
-          <p className="text-lg font-mono text-green-400">{currentTime.toLocaleTimeString()}</p>
+          <p className="text-lg font-mono text-orange-600">{currentTime.toLocaleTimeString()}</p>
         </div>
       </div>
 
@@ -122,7 +122,7 @@ export default function LiveTracking() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-4 w-4 text-green-400"
+                className="h-4 w-4 text-orange-600"
               >
                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
               </svg>
@@ -143,7 +143,7 @@ export default function LiveTracking() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-4 w-4 text-green-400"
+                className="h-4 w-4 text-orange-600"
               >
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
@@ -167,7 +167,7 @@ export default function LiveTracking() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-4 w-4 text-green-400"
+                className="h-4 w-4 text-orange-600"
               >
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
@@ -189,7 +189,7 @@ export default function LiveTracking() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-4 w-4 text-green-400"
+                className="h-4 w-4 text-orange-600"
               >
                 <circle cx="12" cy="12" r="10"></circle>
                 <path d="M2 12h20"></path>
@@ -231,14 +231,14 @@ export default function LiveTracking() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-16 w-16 text-green-400 mx-auto mb-4"
+                className="h-16 w-16 text-orange-600 mx-auto mb-4"
               >
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
               <p className="text-white text-lg font-medium">Interactive Map</p>
               <p className="text-gray-400">Real-time driver locations and routes</p>
-              <button className="mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md flex items-center justify-center mx-auto">
+              <button className="mt-4 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md flex items-center justify-center mx-auto">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -256,7 +256,7 @@ export default function LiveTracking() {
                 View Full Map
               </button>
             </div>
-            <div className="absolute top-20 left-20 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+            <div className="absolute top-20 left-20 w-3 h-3 bg-orange-600 rounded-full animate-pulse"></div>
             <div className="absolute top-32 right-32 w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
             <div className="absolute bottom-24 left-40 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
             <div className="absolute bottom-40 right-20 w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
@@ -275,13 +275,13 @@ export default function LiveTracking() {
               <div
                 key={driver.id}
                 className={`p-4 bg-gray-800 rounded-lg border-2 transition-colors cursor-pointer ${
-                  selectedDriver === driver.id ? "border-green-500" : "border-transparent hover:border-gray-700"
+                  selectedDriver === driver.id ? "border-orange" : "border-transparent hover:border-gray-700"
                 }`}
                 onClick={() => setSelectedDriver(selectedDriver === driver.id ? null : driver.id)}
               >
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-white font-bold">
                         {driver.name
                           .split(" ")
@@ -422,7 +422,7 @@ export default function LiveTracking() {
                               key={index}
                               className={`p-2 sm:px-4 sm:py-2 rounded-full sm:rounded-md flex items-center ${
                                 primary
-                                  ? "bg-green-600 hover:bg-green-700 text-white"
+                                  ? "bg-orange-600 hover:bg-orange-700 text-white"
                                   : "border border-gray-700 text-gray-400 hover:bg-gray-700"
                               }`}
                             >
