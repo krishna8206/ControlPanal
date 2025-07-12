@@ -69,7 +69,7 @@ export default function Dashboard() {
 
   // Driver data handler
   const handleDriverEvent = useCallback((type, data) => {
-    console.log(`🚚 Received driver event '${type}':`, data);
+    console.log(`🚚 Received rider '${type}':`, data);
     if (type === 'update') {
       // Full update, replace all drivers
       setLiveDrivers(data.data || []);
@@ -187,7 +187,7 @@ export default function Dashboard() {
         <div className="p-6 border-b border-gray-800">
           <h2 className="text-white flex items-center text-xl">
             <MapPin className="h-5 w-5 mr-2 text-orange-600" />
-            Live Driver Tracking
+            Live Rider Tracking
           </h2>
         </div>
         <div className="p-6">
@@ -198,7 +198,7 @@ export default function Dashboard() {
               <div className="text-center z-10">
                 <MapPin className="h-16 w-16 text-orange-600 mx-auto mb-4" />
                 <p className="text-white text-lg font-medium">Interactive Map</p>
-                <p className="text-gray-400">Real-time driver locations will appear here</p>
+                <p className="text-gray-400">Real-time rider locations will appear here</p>
               </div>
               {/* Pulsing dots representing live drivers */}
               {liveDrivers.slice(0, 5).map(driver => (
@@ -241,7 +241,7 @@ export default function Dashboard() {
                     </button>
                   </div>
                 </div>
-              )) : <p className="text-gray-400 text-center mt-10">No live drivers found.</p>}
+              )) : <p className="text-gray-400 text-center mt-10">No live riders found.</p>}
             </div>
           </div>
         </div>
@@ -261,7 +261,7 @@ export default function Dashboard() {
 
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium text-gray-400">Online Drivers</h3>
+              <h3 className="text-sm font-medium text-gray-400">Online Riders</h3>
               <Users className="h-4 w-4 text-orange-600" />
             </div>
             <div className="text-2xl font-bold text-white">{stats.totalDrivers}</div>

@@ -236,7 +236,7 @@ export default function ReportsEarning() {
           return null
         }),
         fetch(`https://panalsbackend.onrender.com/api/reports/driver-performance?${params}`).catch((e) => {
-          console.error("Driver API error:", e)
+          console.error("Rider API error:", e)
           return null
         }),
       ])
@@ -261,7 +261,7 @@ export default function ReportsEarning() {
 
       if (driverResponse && driverResponse.ok) {
         const driverData = await driverResponse.json()
-        console.log("👥 API Driver data:", driverData)
+        console.log("👥 API Rider data:", driverData)
         if (updateStateWithValidation(driverData, "drivers")) {
           hasValidData = true
         }
@@ -389,7 +389,7 @@ export default function ReportsEarning() {
     })
 
     newSocket.on("driverPerformanceUpdate", (data) => {
-      console.log("👥 Socket driver update:", data)
+      console.log("👥 Socket rider update:", data)
       if (updateStateWithValidation(data, "drivers")) {
         setDataSource("socket")
       }
@@ -672,7 +672,7 @@ export default function ReportsEarning() {
                 onChange={(e) => setDriverFilter(e.target.value)}
                 className="border border-gray-600 rounded-lg px-3 py-1 bg-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
-                <option value="all">All Drivers</option>
+                <option value="all">All Riders</option>
                 {summaryData.drivers?.map((driver) => (
                   <option key={driver.id} value={driver.id}>
                     {driver.name}
@@ -729,7 +729,7 @@ export default function ReportsEarning() {
               activeTab === "drivers" ? "text-orange-600" : "text-gray-400 hover:text-gray-300"
             }`}
           >
-            Drivers
+            Riders
             {activeTab === "drivers" && (
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-600 rounded-full"></div>
             )}
@@ -989,7 +989,7 @@ export default function ReportsEarning() {
             {activeTab === "drivers" && (
               <div className="space-y-6">
                 <div className="bg-gray-800 rounded-lg shadow p-4 border border-gray-700">
-                  <h2 className="text-lg font-semibold text-white mb-4">Driver Earnings Distribution</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Rider Earnings Distribution</h2>
                   <div className="h-80">
                     {isLoading ? (
                       <ChartSkeleton />
@@ -1016,13 +1016,13 @@ export default function ReportsEarning() {
                         </PieChart>
                       </ResponsiveContainer>
                     ) : (
-                      <EmptyChartState message="No driver data available" />
+                      <EmptyChartState message="No rider data available" />
                     )}
                   </div>
                 </div>
 
                 <div className="bg-gray-800 rounded-lg shadow p-4 border border-gray-700">
-                  <h2 className="text-lg font-semibold text-white mb-4">Driver Performance</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Rider Performance</h2>
                   <div className="overflow-x-auto">
                     {isLoading ? (
                       <TableSkeleton />
@@ -1031,7 +1031,7 @@ export default function ReportsEarning() {
                         <thead className="bg-gray-800">
                           <tr>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                              Driver
+                              Rider
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                               Trips
@@ -1062,7 +1062,7 @@ export default function ReportsEarning() {
                         </tbody>
                       </table>
                     ) : (
-                      <EmptyChartState message="No driver performance data available" />
+                      <EmptyChartState message="No rider performance data available" />
                     )}
                   </div>
                 </div>

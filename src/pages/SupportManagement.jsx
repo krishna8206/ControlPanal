@@ -27,7 +27,7 @@ const supportTickets = [
   {
     id: "SUP002",
     user: "Rajesh Kumar",
-    userType: "Driver",
+    userType: "Rider",
     subject: "Account verification pending",
     priority: "Medium",
     status: "In Progress",

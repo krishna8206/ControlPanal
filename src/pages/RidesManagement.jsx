@@ -90,7 +90,7 @@ export default function RidesManagement() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <input
-                  placeholder="Search Trips, riders, drivers, or locations..."
+                  placeholder="Search Trips, riders or locations..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10 bg-gray-800 border border-gray-700 text-white rounded-md p-2 w-full"
@@ -116,7 +116,7 @@ export default function RidesManagement() {
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6 text-center"><p className="text-2xl font-bold text-blue-400">{rides.filter((r) => r.status === "ongoing").length}</p><p className="text-gray-400 text-sm">Ongoing</p></div>
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6 text-center"><p className="text-2xl font-bold text-green-400">{rides.filter((r) => r.status === "completed").length}</p><p className="text-gray-400 text-sm">Completed</p></div>
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6 text-center"><p className="text-2xl font-bold text-red-400">{rides.filter((r) => r.status === "cancelled").length}</p><p className="text-gray-400 text-sm">Cancelled</p></div>
-          <div className="bg-gray-900 border border-gray-800 rounded-lg p-6 text-center"><p className="text-2xl font-bold text-red-400">{rides.filter((r) => r.status === "cancelled").length}</p><p className="text-gray-400 text-sm">Cancel By Driver</p></div>
+          <div className="bg-gray-900 border border-gray-800 rounded-lg p-6 text-center"><p className="text-2xl font-bold text-red-400">{rides.filter((r) => r.status === "cancelled").length}</p><p className="text-gray-400 text-sm">Cancel By Rider</p></div>
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6 text-center"><p className="text-2xl font-bold text-red-400">{rides.filter((r) => r.status === "cancelled").length}</p><p className="text-gray-400 text-sm">Cancel By Customer</p></div>
         </div>
         {filteredRides.length > 0 ? (
@@ -152,7 +152,7 @@ export default function RidesManagement() {
                       <p className="text-gray-400 text-sm">ID: {ride.riderId}</p>
                     </div>
                     <div className="bg-gray-800 p-3 rounded-lg">
-                      <div className="flex items-center space-x-2 mb-2"><svg className="h-4 w-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg><span className="text-blue-400 font-medium">Driver</span></div>
+                      <div className="flex items-center space-x-2 mb-2"><svg className="h-4 w-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg><span className="text-blue-400 font-medium">Rider</span></div>
                       <p className="text-white font-medium">{ride.driverName}</p>
                       <p className="text-gray-400 text-sm">ID: {ride.driverId}</p>
                     </div>
@@ -217,8 +217,8 @@ export default function RidesManagement() {
                     </div>
                     <div className="bg-gray-800 p-4 rounded-lg space-y-2 text-sm">
                       <h4 className="text-white font-medium mb-2">Participants</h4>
-                      <div className="flex justify-between"><span className="text-gray-400">Rider:</span><span className="text-white">{selectedRideData.riderName}</span></div>
-                      <div className="flex justify-between"><span className="text-gray-400">Driver:</span><span className="text-white">{selectedRideData.driverName}</span></div>
+                      <div className="flex justify-between"><span className="text-gray-400">type:</span><span className="text-white">{selectedRideData.riderName}</span></div>
+                      <div className="flex justify-between"><span className="text-gray-400">Rider:</span><span className="text-white">{selectedRideData.driverName}</span></div>
                     </div>
                   </div>
                   <div className="bg-gray-800 p-4 rounded-lg">

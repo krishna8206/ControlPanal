@@ -306,7 +306,7 @@ export default function FleetManagement() {
 
   const handleSaveDriverLink = async () => {
     if (!driverIdInput.match(/^[0-9a-fA-F]{24}$/)) {
-      alert("Invalid driver ID format");
+      alert("Invalid rider ID format");
       return;
     }
     try {
@@ -318,10 +318,10 @@ export default function FleetManagement() {
       );
       setLinkingDriver(null);
       setDriverIdInput("");
-      alert(`Driver linked to ${linkingDriver.model} successfully!`);
+      alert(`Rider linked to ${linkingDriver.model} successfully!`);
     } catch (error) {
-      console.error("Error linking driver:", error);
-      alert(`Failed to link driver: ${error.response?.data?.message || error.message}`);
+      console.error("Error linking rider:", error);
+      alert(`Failed to link rider: ${error.response?.data?.message || error.message}`);
     }
   };
 
@@ -425,7 +425,7 @@ export default function FleetManagement() {
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
                 <input
-                  placeholder="Search vehicles, numbers, or drivers..."
+                  placeholder="Search vehicles, numbers, or riders..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10 bg-gray-800 border border-gray-700 text-white p-2 rounded-md w-full"
@@ -559,7 +559,7 @@ export default function FleetManagement() {
 
                 <div className="bg-gray-800 p-3 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
-                    <p className="text-gray-400 text-sm">Linked Driver</p>
+                    <p className="text-gray-400 text-sm">Linked Rider</p>
                     <span className={`${vehicle.driver?.verified ? "bg-orange-600" : "bg-gray-600"} text-white px-2 py-1 rounded-full text-xs`}>
                       {vehicle.driver?.verified ? "Verified" : "Pending"}
                     </span>
@@ -589,7 +589,7 @@ export default function FleetManagement() {
                     className="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-sm"
                     onClick={() => handleLinkDriver(vehicle)}
                   >
-                    Link Driver
+                    Link Rider
                   </button>
                 </div>
 
@@ -729,7 +729,7 @@ export default function FleetManagement() {
                     </div>
                   </div>
                   <div className="bg-gray-800 p-4 rounded-lg">
-                    <h4 className="text-white font-medium mb-2">Driver Information</h4>
+                    <h4 className="text-white font-medium mb-2">Rider Information</h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-400">Name:</span>
@@ -1063,14 +1063,14 @@ export default function FleetManagement() {
           <div className="bg-gray-900 border border-gray-800 text-white rounded-lg max-w-md w-full">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Link Driver to {linkingDriver.model}</h2>
+                <h2 className="text-xl font-bold">Link Rider to {linkingDriver.model}</h2>
                 <button onClick={() => setLinkingDriver(null)} className="text-gray-400 hover:text-white">
                   ×
                 </button>
               </div>
               <div className="space-y-4">
                 <div>
-                  <label className="text-gray-400 text-sm">Driver ID</label>
+                  <label className="text-gray-400 text-sm">Rider ID</label>
                   <input
                     type="text"
                     value={driverIdInput}
@@ -1090,7 +1090,7 @@ export default function FleetManagement() {
                     className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md"
                     onClick={handleSaveDriverLink}
                   >
-                    Link Driver
+                    Link Rider
                   </button>
                 </div>
               </div>

@@ -97,7 +97,7 @@ export default function LiveTracking() {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-white">Live Tracking Dashboard</h1>
-          <p className="text-gray-400 mt-1">Real-time monitoring of all active drivers and trips</p>
+          <p className="text-gray-400 mt-1">Real-time monitoring of all active riders and trips</p>
         </div>
         <div className="text-right">
           <p className="text-sm text-gray-400">Last Updated</p>
@@ -130,7 +130,7 @@ export default function LiveTracking() {
             desc: "Live tracking enabled",
           },
           {
-            title: "Total Drivers",
+            title: "Total Riders",
             value: trackingStats.totalDrivers,
             icon: (
               <svg
@@ -237,7 +237,7 @@ export default function LiveTracking() {
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
               <p className="text-white text-lg font-medium">Interactive Map</p>
-              <p className="text-gray-400">Real-time driver locations and routes</p>
+              <p className="text-gray-400">Real-time rider locations and routes</p>
               <button className="mt-4 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md flex items-center justify-center mx-auto">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -267,7 +267,7 @@ export default function LiveTracking() {
       {/* Live Driver Status */}
       <div className="bg-gray-900 border border-gray-800 rounded-lg">
         <div className="p-6">
-          <h2 className="text-white text-xl font-bold">Live Driver Status</h2>
+          <h2 className="text-white text-xl font-bold">Live Rider Status</h2>
         </div>
         <div className="px-6 pb-6">
           <div className="space-y-4">
